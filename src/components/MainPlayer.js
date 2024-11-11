@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import * as mm from 'music-metadata-browser';  // Import music-metadata-browser
 import song1 from '../assets/Bekhayali.mp3';
 import song2 from '../assets/Kaisehua.mp3';
+import ArtistCard from "./Artist";
 
 const initialTracks = [
   {
@@ -147,6 +148,7 @@ const MainPlayer = () => {
     <div className="flex flex-row h-screen bg-red-800">
       <div className="w-4/6">
         <Navbar />
+        <ArtistCard />
         <TrackList tracks={tracks} onSelectTrack={handleSelectTrack} onDragEnd={onDragEnd} />
       </div>
       <div className="w-2/6 bg-black">
