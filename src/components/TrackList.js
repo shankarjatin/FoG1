@@ -1,21 +1,57 @@
-// src/components/TrackList.js
 import React from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const TrackList = ({ tracks, onSelectTrack }) => {
+const TrackList = ({ tracks, onSelectTrack, onDragEnd }) => {
   return (
-    <div className="bg-black text-white p-5 overflow-y-auto">
-      {tracks.map((track, index) => (
-        <div key={index} className="p-2 hover:bg-gray-800 cursor-pointer" onClick={() => onSelectTrack(track)}>
-          <div className="flex items-center">
-            <div className="text-red-500 mr-2">▶</div>
-            <div className="flex flex-col">
-              <span>{track.title}</span>
-              <span className="text-gray-400 text-sm">{track.artist} - {track.album}</span>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="tracklist">
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef} className="bg-black text-white">
+            {/* Header Row */}
+            <div className="flex justify-between text-gray-400 p-3 font-semibold border-b border-gray-600">
+              <div className="flex items-center w-1/4 space-x-4">
+                <span>#</span>
+                <span>Title</span>
+              </div>
+              <div className="flex items-center justify-between w-3/4">
+                <span className="w-1/3 text-center">Playing</span>
+                <span className="w-1/3 text-center">Time</span>
+                <span className="w-1/3 text-center">Album</span>
+              </div>
             </div>
+
+            {/* Track List Items */}
+            {tracks.map((track, index) => (
+              <Draggable key={track.id} draggableId={track.id} index={index}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={`flex justify-between items-center p-3 ${
+                      index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900'
+                    } hover:bg-red-700 cursor-pointer`}
+                    onClick={() => onSelectTrack(track)}
+                  >
+                    <div className="flex items-center w-1/4 space-x-4">
+                      <span className="text-red-500">{index + 1}</span>
+                      <img src={track.thumbnail} alt={`${track.title} cover`} className="h-10 w-10 rounded-md" />
+                      <span>{track.title}</span>
+                    </div>
+                    <div className="flex items-center justify-between w-3/4">
+                      <span className="w-1/3 text-center">{track.playing.toLocaleString()}</span>
+                      <span className="w-1/3 text-center">{track.time}</span>
+                      <span className="w-1/3 text-center">{track.album}</span>
+                    </div>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
           </div>
-        </div>
-      ))}
-    </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

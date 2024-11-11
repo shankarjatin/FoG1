@@ -1,40 +1,43 @@
-// src/components/NowPlaying.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Howl } from 'howler';
 
-const NowPlaying = ({ track }) => {
-  const [player, setPlayer] = React.useState(null);
+const NowPlaying = ({ track, onNext, onPrevious }) => {
+  const [player, setPlayer] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (track) {
-      const howl = new Howl({
+      if (player) {
+        player.stop(); // Ensure stopping the previous song before starting a new one
+      }
+      const sound = new Howl({
         src: [track.audioSrc],
-        html5: true,
-        onplay: () => console.log('Music playing'),
-        onstop: () => console.log('Music stopped'),
-        onend: () => console.log('Music ended')
+        html5: true // This should ensure the file is streamed
       });
-      setPlayer(howl);
-      howl.play();
-      return () => howl.unload();
+      setPlayer(sound);
+      sound.play();
+      return () => {
+        sound.unload(); // Unload the sound from memory when the component is unmounted or track changes
+      };
     }
-  }, [track]);
+  }, [track]); // Dependency array, ensures effect runs only when track changes
 
   const handlePlay = () => player && player.play();
   const handlePause = () => player && player.pause();
 
   return (
-    <div className="p-5 bg-black text-white fixed bottom-0 right-0 w-1/4">
+    <div className="h-full p-5 bg-black text-white">
       <div className="bg-gray-800 p-3">
         {track ? (
           <>
-            <div className="text-lg">{track.title} - {track.artist}</div>
-            <div className="flex mt-2">
+            <h3 className="text-lg">{track.title} - {track.artist}</h3>
+            <div className="flex justify-between items-center mt-2">
+              <button onClick={onPrevious} className="bg-blue-500 p-2">Prev</button>
               <button onClick={handlePlay} className="bg-green-500 p-2 mx-1">Play</button>
               <button onClick={handlePause} className="bg-red-500 p-2 mx-1">Pause</button>
+              <button onClick={onNext} className="bg-blue-500 p-2">Next</button>
             </div>
           </>
-        ) : 'No track playing'}
+        ) : 'Select a track to play'}
       </div>
     </div>
   );

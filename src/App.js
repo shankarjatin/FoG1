@@ -4,6 +4,7 @@ import PlayerControls from "./components/PlayerControl";
 import MainPlayer from "./components/MainPlayer";
 import "./index.css";
 
+
 function App() {
   return (
     <div className="flex flex-row h-screen">

@@ -8,7 +8,7 @@ import setting from '../assets/setting.png';
 import home from '../assets/Vector.png';
 function Sidebar() {
   return (
-    <div className=" h-full bg-black text-white flex flex-col justify-between">
+    <div className="h-full bg-black text-white flex flex-col justify-between">
       <div>
         <h1 className="text-3xl font-bold p-5">DreamMusic</h1>
         <ul className="mt-10">
