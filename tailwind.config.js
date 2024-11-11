@@ -1,6 +1,8 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+ // or 'media' or 'class'
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",  // Add paths for all your React components
+  ],
   theme: {
     extend: {},
   },
