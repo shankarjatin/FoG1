@@ -14,8 +14,8 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-red-800 text-white flex justify-between items-center px-5 py-2">
-      <div className="flex space-x-8++">
+    <div className=" text-white flex justify-between items-center px-5 py-2">
+      <div className="flex space-x-8">
         <a href="#music" className="hover:text-gray-300">Music</a>
         <a href="#podcast" className="hover:text-gray-300">Podcast</a>
         <a href="#live" className="hover:text-gray-300">Live</a>

@@ -6,7 +6,11 @@ const TrackList = ({ tracks, onSelectTrack, onDragEnd }) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="tracklist">
         {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef} className="bg-black text-white">
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="text-white h-72 overflow-y-auto" // Set height and enable y-axis scroll
+          >
             {/* Header Row */}
             <div className="flex justify-between text-gray-400 p-3 font-semibold border-b border-gray-600">
               <div className="flex items-center w-1/4 space-x-4">
@@ -29,7 +33,7 @@ const TrackList = ({ tracks, onSelectTrack, onDragEnd }) => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     className={`flex justify-between items-center p-3 ${
-                      index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900'
+                      index % 2 === 0 ? '' : ''
                     } hover:bg-red-700 cursor-pointer`}
                     onClick={() => onSelectTrack(track)}
                   >

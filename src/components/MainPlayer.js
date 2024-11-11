@@ -145,7 +145,7 @@ const MainPlayer = () => {
   };
 
   return (
-    <div className="flex flex-row h-screen bg-red-800">
+    <div className="flex flex-row h-screen transform  bg-gradient-to-b from-red-600 to-red-900">
       <div className="w-4/6">
         <Navbar />
         <ArtistCard />
